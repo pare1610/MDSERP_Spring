@@ -1,14 +1,14 @@
 package com.proelectricos.mdserp.model.dto;
 
+import com.proelectricos.mdserp.model.entity.sqlfactory.Adic;
 import lombok.Value;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
- * DTO for {@link com.proelectricos.mdserp.model.entity.Adic}
+ * DTO for {@link Adic}
  */
 @Value
 public class AdicDto implements Serializable {

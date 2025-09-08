@@ -1,4 +1,4 @@
-package com.proelectricos.mdserp.model.entity;
+package com.proelectricos.mdserp.model.entity.sqlfactory;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

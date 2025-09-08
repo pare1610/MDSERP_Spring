@@ -1,17 +1,14 @@
 package com.proelectricos.mdserp;
 
-import com.proelectricos.mdserp.model.entity.Adic;
-import com.proelectricos.mdserp.repository.AdicRepository;
+import com.proelectricos.mdserp.model.entity.sqlfactory.Adic;
+import com.proelectricos.mdserp.repository.pdm.VariableRepository;
+import com.proelectricos.mdserp.repository.sqlfactory.AdicRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Date;
 
 @SpringBootApplication
 public class MdserpApplication {
@@ -22,7 +19,7 @@ public class MdserpApplication {
 
 
 @Bean
-public ApplicationRunner configure(AdicRepository adicRepository) {
+public ApplicationRunner configure(AdicRepository adicRepository, VariableRepository variableRepository) {
     return env ->
     {
         LocalDate fechanew = LocalDate.now();
@@ -37,6 +34,9 @@ public ApplicationRunner configure(AdicRepository adicRepository) {
       // adicRepository.save(adic2);
         adicRepository.findAll().forEach(System.out::println);
         System.out.println(fechanew);
+
+        variableRepository.findAll().forEach(System.out::println);
+
     };
 }
 }
