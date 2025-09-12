@@ -1,8 +1,10 @@
 package com.proelectricos.mdserp;
 
 import com.proelectricos.mdserp.model.entity.sqlfactory.Adic;
+import com.proelectricos.mdserp.model.entity.sqlfactory.Op1;
 import com.proelectricos.mdserp.repository.pdm.VariableRepository;
 import com.proelectricos.mdserp.repository.sqlfactory.AdicRepository;
+import com.proelectricos.mdserp.repository.sqlfactory.Op1Repository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,13 +21,17 @@ public class MdserpApplication {
 
 
 @Bean
-public ApplicationRunner configure(AdicRepository adicRepository, VariableRepository variableRepository) {
+public ApplicationRunner configure(AdicRepository adicRepository, VariableRepository variableRepository, Op1Repository op1Repository) {
     return env ->
     {
         LocalDate fechanew = LocalDate.now();
        // Adic adic1 = new Adic(61018,"SIN00120",2350575,"PRUEBA DE SPRING BOOT", 1, 1,fechanew,"SYS123",1,"","",1,1);
        // Adic adic2 = new Adic(61019,"SIN00120",2350575,"PRUEBA DE SPRING BOOT", new BigDecimal(1), new BigDecimal(1),LocalDate.now(),"SYS123",1,"","",1,1);
        Adic adic1 = new Adic();
+       Op1 op1a = new Op1();
+       op1a.setOp(1234);
+       op1a.setCod("11111Eprueba");
+       op1Repository.save(op1a);
        //adic1.setId(61018);
        adic1.setOp(43525001);
        adic1.setCod("SPE00875");

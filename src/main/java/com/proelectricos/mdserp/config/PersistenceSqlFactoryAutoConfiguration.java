@@ -1,5 +1,8 @@
 package com.proelectricos.mdserp.config;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.StoredProcedureQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -56,7 +59,8 @@ public class PersistenceSqlFactoryAutoConfiguration {
         return em;
     }
 
-    // userTransactionManager bean
+
+   // userTransactionManager bean
 
     @Primary
     @Bean
