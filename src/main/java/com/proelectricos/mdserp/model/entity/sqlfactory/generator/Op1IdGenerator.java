@@ -6,10 +6,7 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Op1IdGenerator implements IdentifierGenerator {
 
@@ -35,6 +32,8 @@ public class Op1IdGenerator implements IdentifierGenerator {
                      * PostgreSQL: "SELECT  NEXTVAL('+sequenceName+"')
                      * */
                     //statement.executeUpdate("UPDATE " + DEFAULT_SEQUENCE_NAME + " SET next_val=LAST_INSERT_ID(next_val+1)");
+
+
                     resultSet = statement.executeQuery("SELECT max(id) FROM emp001_inv.dbo.op1" );
                 } catch (Exception e) {
 
@@ -48,6 +47,15 @@ public class Op1IdGenerator implements IdentifierGenerator {
                     int nextValue = resultSet.getInt(1);
                     String suffix = String.format("%04d", nextValue);
                     result = nextValue+1;
+                    try {
+                        PreparedStatement st = connection.prepareStatement("UPDATE emp001_inv.dbo.ids SET id = ? WHERE table = op1");
+                    st.setInt(1, nextValue);
+                    st.executeUpdate();
+                    } catch (SQLException e ) {
+                        e.printStackTrace();
+                    }
+
+
                     System.out.println("Custom generated sequence is : " + result);
                 }
             } catch (SQLException e) {
