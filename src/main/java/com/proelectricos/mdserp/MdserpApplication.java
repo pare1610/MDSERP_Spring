@@ -38,10 +38,10 @@ public ApplicationRunner configure(AdicRepository adicRepository, VariableReposi
        adic1.setNom("Prueba Spring");
        adicRepository.save(adic1);
       // adicRepository.save(adic2);
-        adicRepository.findAll().forEach(System.out::println);
+      //  adicRepository.findAll().forEach(System.out::println);
         System.out.println(fechanew);
 
-        variableRepository.findAll().forEach(System.out::println);
+    //    variableRepository.findAll().forEach(System.out::println);
 
     };
 }

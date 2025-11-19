@@ -51,6 +51,7 @@ public class PersistencePDMAutoConfiguration {
                 env.getProperty("hibernate.ddl-auto"));
         properties.put("hibernate.dialect",
                 env.getProperty("hibernate.dialect"));
+        System.out.println("PDM EntityManager created " + env.getProperty("hibernate.ddl-auto"));
         em.setJpaPropertyMap(properties);
 
         return em;

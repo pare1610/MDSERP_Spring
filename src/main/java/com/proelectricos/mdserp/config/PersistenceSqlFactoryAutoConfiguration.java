@@ -34,7 +34,9 @@ public class PersistenceSqlFactoryAutoConfiguration {
     @Bean
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource sqlFactoryDataSource() {
+        System.out.println("PDM DataSource created");
         return DataSourceBuilder.create().build();
+
     }
     // sqlFactoryEntityManager bean
     @Bean
@@ -51,11 +53,11 @@ public class PersistenceSqlFactoryAutoConfiguration {
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.ddl-auto",
-                env.getProperty("hibernate.ddl-auto"));
+                env.getProperty("spring.jpa.hibernate.ddl-auto"));
         properties.put("hibernate.dialect",
-                env.getProperty("hibernate.dialect"));
+                env.getProperty("spring.jpa.properties.hibernate.dialect"));
         em.setJpaPropertyMap(properties);
-
+        System.out.println("PDM EntityManager created " + env.getProperty("spring.jpa.hibernate.ddl-auto"));
         return em;
     }
 

@@ -48,7 +48,7 @@ public class Op1IdGenerator implements IdentifierGenerator {
                     String suffix = String.format("%04d", nextValue);
                     result = nextValue+1;
                     try {
-                        PreparedStatement st = connection.prepareStatement("UPDATE emp001_inv.dbo.ids SET id = ? WHERE table = op1");
+                        PreparedStatement st = connection.prepareStatement("UPDATE emp001_inv.dbo.ids SET id = ? WHERE tabla = 'OP1'");
                     st.setInt(1, nextValue);
                     st.executeUpdate();
                     } catch (SQLException e ) {
