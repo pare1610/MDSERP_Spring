@@ -27,7 +27,7 @@ public class PersistencePDMAutoConfiguration {
     @Autowired
     private Environment env;
 
-    @Primary
+
     @Bean
     @ConfigurationProperties(prefix="spring.second-datasource")
     public DataSource pdmDataSource() {
@@ -35,7 +35,7 @@ public class PersistencePDMAutoConfiguration {
     }
     // sqlFactoryEntityManager bean
     @Bean
-    @Primary
+
     public LocalContainerEntityManagerFactoryBean pdmEntityManager() {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
@@ -59,10 +59,10 @@ public class PersistencePDMAutoConfiguration {
 
     // userTransactionManager bean
 
-    @Primary
-    @Bean
-    public PlatformTransactionManager pdmTransactionManager() {
 
+    @Bean
+    public PlatformTransactionManager pdmTransactionManager()
+{
         JpaTransactionManager transactionManager
                 = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(

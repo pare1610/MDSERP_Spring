@@ -19,6 +19,7 @@ public class Op1IdGenerator implements IdentifierGenerator {
             Statement statement = null;
             ResultSet resultSet = null;
 
+
             String prefix = "emp";
             try {
                 connection = session.getJdbcConnectionAccess().obtainConnection();
@@ -49,7 +50,7 @@ public class Op1IdGenerator implements IdentifierGenerator {
                     result = nextValue+1;
                     try {
                         PreparedStatement st = connection.prepareStatement("UPDATE emp001_inv.dbo.ids SET id = ? WHERE tabla = 'OP1'");
-                    st.setInt(1, nextValue);
+                    st.setInt(1, nextValue+1);
                     st.executeUpdate();
                     } catch (SQLException e ) {
                         e.printStackTrace();
