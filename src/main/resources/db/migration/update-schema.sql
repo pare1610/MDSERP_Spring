@@ -1,0 +1,514 @@
+ALTER TABLE tb_typ_cri_option
+DROP
+CONSTRAINT FKU_rco_tma_typ
+GO
+
+ALTER TABLE ta_dat_bas_ofe_detail
+DROP
+CONSTRAINT FK_bod_bas_dat_offers
+GO
+
+ALTER TABLE tb_asi_mat_base
+DROP
+CONSTRAINT FK_tb_asi_mat_base_tb_mat_base
+GO
+
+ALTER TABLE tb_cla_nivel2
+DROP
+CONSTRAINT FK_tb_cla_nivel2_tb_cla_nivel1
+GO
+
+ALTER TABLE tb_cla_nivel3
+DROP
+CONSTRAINT FK_tb_cla_nivel3_tb_cla_nivel2
+GO
+
+ALTER TABLE tb_cla_nivel4
+DROP
+CONSTRAINT FK_tb_cla_nivel4_tb_cla_nivel3
+GO
+
+ALTER TABLE tb_cla_nivel5
+DROP
+CONSTRAINT FK_tb_cla_nivel5_tb_cla_nivel4
+GO
+
+ALTER TABLE tb_exp_ave_margin
+DROP
+CONSTRAINT FK_tb_exp_ave_margin_MAESTRO
+GO
+
+ALTER TABLE tb_imp_products
+DROP
+CONSTRAINT FK_tb_imp_products_MAESTRO
+GO
+
+ALTER TABLE tb_imp_products
+DROP
+CONSTRAINT FK_tb_imp_products_tb_moneda
+GO
+
+ALTER TABLE tb_lis_precios_proveedores
+DROP
+CONSTRAINT FK_tb_lis_precios_proveedores_tb_moneda
+GO
+
+ALTER TABLE tb_precios_proveedor
+DROP
+CONSTRAINT FK_tb_precios_proveedor_tb_lis_precios_proveedores
+GO
+
+ALTER TABLE tb_tie_equipos
+DROP
+CONSTRAINT FK_tb_tie_equipos_DPTO
+GO
+
+ALTER TABLE tb_tie_equipos
+DROP
+CONSTRAINT FK_tb_tie_equipos_tb_tip_material
+GO
+
+ALTER TABLE tb_tip_material
+DROP
+CONSTRAINT FK_tb_tip_material_tb_fam_material
+GO
+
+ALTER TABLE tb_tip_material
+DROP
+CONSTRAINT FK_tma_fac_group
+GO
+
+DROP TABLE ALISTAMIEN
+    GO
+
+DROP TABLE ALTURA
+    GO
+
+DROP TABLE ANALISIS
+    GO
+
+DROP TABLE AUTMOVIM
+    GO
+
+DROP TABLE AUXIL
+    GO
+
+DROP TABLE BALANZAS
+    GO
+
+DROP TABLE BASE1
+    GO
+
+DROP TABLE BASEOP
+    GO
+
+DROP TABLE BEBIDATARI
+    GO
+
+DROP TABLE BODEGAS
+    GO
+
+DROP TABLE CABTRAS
+    GO
+
+DROP TABLE CAMAS
+    GO
+
+DROP TABLE CAMPOS
+    GO
+
+DROP TABLE CAT14UNIDA
+    GO
+
+DROP TABLE CATEGORIAS
+    GO
+
+DROP TABLE CATEGXPROD
+    GO
+
+DROP TABLE CAUSAL
+    GO
+
+DROP TABLE CLASES
+    GO
+
+DROP TABLE COLORES
+    GO
+
+DROP TABLE COMPRAS2
+    GO
+
+DROP TABLE COMP_HOR
+    GO
+
+DROP TABLE CONFCBC
+    GO
+
+DROP TABLE CONFCORTE
+    GO
+
+DROP TABLE CONTAB
+    GO
+
+DROP TABLE CONTABI
+    GO
+
+DROP TABLE CONTROLRES
+    GO
+
+DROP TABLE DANE
+    GO
+
+DROP TABLE DATOSENTRE
+    GO
+
+DROP TABLE DETTRAS
+    GO
+
+DROP TABLE DOCUM
+    GO
+
+DROP TABLE DPTO
+    GO
+
+DROP TABLE ERRORESF
+    GO
+
+DROP TABLE EXTRA
+    GO
+
+DROP TABLE EXTRAER
+    GO
+
+DROP TABLE FISICO
+    GO
+
+DROP TABLE FRASESH
+    GO
+
+DROP TABLE FRASESP
+    GO
+
+DROP TABLE FRECUDESPA
+    GO
+
+DROP TABLE GRUPO
+    GO
+
+DROP TABLE HDPARAM
+    GO
+
+DROP TABLE HOJAS
+    GO
+
+DROP TABLE HOMRFMAX
+    GO
+
+DROP TABLE IDS
+    GO
+
+DROP TABLE INVPARAM
+    GO
+
+DROP TABLE IVA
+    GO
+
+DROP TABLE KARDEXHI
+    GO
+
+DROP TABLE Kardex
+    GO
+
+DROP TABLE KardexA
+    GO
+
+DROP TABLE LINEAS
+    GO
+
+DROP TABLE LOGFRECDES
+    GO
+
+DROP TABLE LOGOPERMOV
+    GO
+
+DROP TABLE LOGUBICA
+    GO
+
+DROP TABLE LOTES
+    GO
+
+DROP TABLE MAESTR
+    GO
+
+DROP TABLE MAESTRAA
+    GO
+
+DROP TABLE MAESTRO
+    GO
+
+DROP TABLE MAESTRO1
+    GO
+
+DROP TABLE MAESTRO2
+    GO
+
+DROP TABLE MAESTRO3
+    GO
+
+DROP TABLE MDSALISTA
+    GO
+
+DROP TABLE MDS_CONTEO
+    GO
+
+DROP TABLE MDS_FISICO
+    GO
+
+DROP TABLE MDS_SALDOINV
+    GO
+
+DROP TABLE MDS_SDOPP
+    GO
+
+DROP TABLE MEDIOS
+    GO
+
+DROP TABLE METODO
+    GO
+
+DROP TABLE MOVINV
+    GO
+
+DROP TABLE Maestra1
+    GO
+
+DROP TABLE OP
+    GO
+
+DROP TABLE OP2
+    GO
+
+DROP TABLE OP3
+    GO
+
+DROP TABLE OP4
+    GO
+
+DROP TABLE OP5
+    GO
+
+DROP TABLE OP6
+    GO
+
+DROP TABLE OP7
+    GO
+
+DROP TABLE OPADIC
+    GO
+
+DROP TABLE OPADIC1
+    GO
+
+DROP TABLE OPERMOVIM
+    GO
+
+DROP TABLE OPSUBORDEN
+    GO
+
+DROP TABLE OPUBIC
+    GO
+
+DROP TABLE OP_ROT2
+    GO
+
+DROP TABLE ORDEN
+    GO
+
+DROP TABLE OSERV
+    GO
+
+DROP TABLE Op1Ant
+    GO
+
+DROP TABLE PASAR
+    GO
+
+DROP TABLE PICTOGRAMA
+    GO
+
+DROP TABLE PLANDESPA
+    GO
+
+DROP TABLE PRODLOTE
+    GO
+
+DROP TABLE PROPAGACI
+    GO
+
+DROP TABLE PROYECTO
+    GO
+
+DROP TABLE REFESPECI
+    GO
+
+DROP TABLE RELACIOUBO
+    GO
+
+DROP TABLE REPARAC
+    GO
+
+DROP TABLE RESERVAS
+    GO
+
+DROP TABLE SERVTERC
+    GO
+
+DROP TABLE SOLICITU
+    GO
+
+DROP TABLE SUMMARY
+    GO
+
+DROP TABLE SUSTITUT
+    GO
+
+DROP TABLE TALLA
+    GO
+
+DROP TABLE TALLAS
+    GO
+
+DROP TABLE TBL_TIPO_INV
+    GO
+
+DROP TABLE TIPO
+    GO
+
+DROP TABLE TIPOS
+    GO
+
+DROP TABLE TPL_TIPOS
+    GO
+
+DROP TABLE UBICA
+    GO
+
+DROP TABLE UBICACION
+    GO
+
+DROP TABLE UNIDAD
+    GO
+
+DROP TABLE USOS
+    GO
+
+DROP TABLE USUBODEGA
+    GO
+
+DROP TABLE VALIDADO
+    GO
+
+DROP TABLE VEHICULOS
+    GO
+
+DROP TABLE VENTAS
+    GO
+
+DROP TABLE VENTAS1
+    GO
+
+DROP TABLE ata_ele_equipment
+    GO
+
+DROP TABLE ata_pri_list
+    GO
+
+DROP TABLE mds_infinv
+    GO
+
+DROP TABLE op1
+    GO
+
+DROP TABLE ta_bas_dat_ofertas
+    GO
+
+DROP TABLE ta_dat_bas_ofe_detail
+    GO
+
+DROP TABLE ta_his_cos_estandar
+    GO
+
+DROP TABLE ta_imp_mae_master
+    GO
+
+DROP TABLE tb_asi_mat_base
+    GO
+
+DROP TABLE tb_aux_cotizador
+    GO
+
+DROP TABLE tb_cla_gro_mapping
+    GO
+
+DROP TABLE tb_cla_nivel1
+    GO
+
+DROP TABLE tb_cla_nivel2
+    GO
+
+DROP TABLE tb_cla_nivel3
+    GO
+
+DROP TABLE tb_cla_nivel4
+    GO
+
+DROP TABLE tb_cla_nivel5
+    GO
+
+DROP TABLE tb_exp_ave_margin
+    GO
+
+DROP TABLE tb_fabricante
+    GO
+
+DROP TABLE tb_fam_material
+    GO
+
+DROP TABLE tb_imp_products
+    GO
+
+DROP TABLE tb_kardex_aux
+    GO
+
+DROP TABLE tb_lis_precios_proveedores
+    GO
+
+DROP TABLE tb_mat_base
+    GO
+
+DROP TABLE tb_mat_cotizador
+    GO
+
+DROP TABLE tb_moneda
+    GO
+
+DROP TABLE tb_precios_proveedor
+    GO
+
+DROP TABLE tb_provee_factory
+    GO
+
+DROP TABLE tb_tie_equipos
+    GO
+
+DROP TABLE tb_tip_material
+    GO
+
+DROP TABLE tb_typ_cri_option
+    GO
+
+DROP TABLE tb_usuarios
+    GO
+
+DROP SEQUENCE sq_tem_id_kardex
+    GO
