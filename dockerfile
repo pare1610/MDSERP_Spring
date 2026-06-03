@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copiamos el artefacto.
 # Nota: Asegúrate de que el JAR esté en la misma carpeta que este Dockerfile.
-COPY ./target/MDSERP-0.0.3-SNAPSHOT.jar app.jar
+COPY ./target/MDSERP-1.0.0-SNAPSHOT.jar app.jar
 
 # Configuración de memoria dinámica para contenedores
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
