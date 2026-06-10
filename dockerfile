@@ -12,7 +12,7 @@ COPY ./target/MDSERP-1.0.0-SNAPSHOT.jar app.jar
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 
 # Exponer el puerto estándar de Spring Boot
-EXPOSE 8080
+EXPOSE 8181
 
 # Ejecución usando el comando optimizado
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
