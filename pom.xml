@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- specify the source encoding for platform-independent builds in our Maven project  -->
     </properties>
     <dependencies>
         <dependency>
@@ -57,7 +58,7 @@
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>2.3.9</version>
+            <version>3.2.6</version>
         </dependency>
 
         <!-- OpenAPI Documentation view in localhost:8181/swagger-ui/index.html-->
