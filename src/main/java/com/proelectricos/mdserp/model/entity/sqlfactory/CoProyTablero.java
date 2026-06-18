@@ -11,7 +11,7 @@ import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Nationalized;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -38,10 +38,10 @@ public class CoProyTablero {
     private String master;
 
     @Column(name = "\"FECHA PEDIDO\"")
-    private Instant fechaPedido;
+    private LocalDate fechaPedido;
 
     @Column(name = "\"FECHA FINAL\"")
-    private Instant fechaFinal;
+    private LocalDate fechaFinal;
 
     @Size(max = 50)
     @Column(name = "\"FECHA REAL ENTREGA\"", length = 50)
@@ -94,61 +94,61 @@ public class CoProyTablero {
     private BigDecimal canSaldo;
 
     @Column(name = "FECHA_T")
-    private Instant fechaT;
+    private LocalDate fechaT;
 
     @Column(name = "\"DISP ELEC MEC PLAN\"")
-    private Instant dispElecMecPlan;
+    private LocalDate dispElecMecPlan;
 
     @Column(name = "\"DISP ELEC MEC REAL\"")
-    private Instant dispElecMecReal;
+    private LocalDate dispElecMecReal;
 
     @Column(name = "\"APROBACIÓN PLAN\"")
-    private Instant aprobaciNPlan;
+    private LocalDate aprobaciNPlan;
 
     @Column(name = "\"APROBACIÓN REAL\"")
-    private Instant aprobaciNReal;
+    private LocalDate aprobaciNReal;
 
     @Column(name = "\"COMPROMISO Y ENTREGA PLAN\"")
-    private Instant compromisoYEntregaPlan;
+    private LocalDate compromisoYEntregaPlan;
 
     @Column(name = "\"COMPROMISO Y ENTREGA REAL\"")
-    private Instant compromisoYEntregaReal;
+    private LocalDate compromisoYEntregaReal;
 
     @Column(name = "\"LMF Y CONSUMIBLES PLAN\"")
-    private Instant lmfYConsumiblesPlan;
+    private LocalDate lmfYConsumiblesPlan;
 
     @Column(name = "\"LMF Y CONSUMIBLES REAL\"")
-    private Instant lmfYConsumiblesReal;
+    private LocalDate lmfYConsumiblesReal;
 
     @Column(name = "\"COMPRAS PLAN\"")
-    private Instant comprasPlan;
+    private LocalDate comprasPlan;
 
     @Column(name = "\"COMPRAS REAL\"")
-    private Instant comprasReal;
+    private LocalDate comprasReal;
 
     @Column(name = "\"DISEÑO MECÁNICO PLAN\"")
-    private Instant diseOMecNicoPlan;
+    private LocalDate diseOMecNicoPlan;
 
     @Column(name = "\"DISEÑO MECÁNICO REAL\"")
-    private Instant diseOMecNicoReal;
+    private LocalDate diseOMecNicoReal;
 
     @Column(name = "\"METALMECÁNICA PLAN\"")
-    private Instant metalmecNicaPlan;
+    private LocalDate metalmecNicaPlan;
 
     @Column(name = "\"METALMECÁNICA REAL\"")
-    private Instant metalmecNicaReal;
+    private LocalDate metalmecNicaReal;
 
     @Column(name = "\"MATERIAL ELÉCTRICO PLAN\"")
-    private Instant materialElCtricoPlan;
+    private LocalDate materialElCtricoPlan;
 
     @Column(name = "\"MATERIAL ELÉCTRICO REAL\"")
-    private Instant materialElCtricoReal;
+    private LocalDate materialElCtricoReal;
 
     @Column(name = "\"DESPACHO PLAN\"")
-    private Instant despachoPlan;
+    private LocalDate despachoPlan;
 
     @Column(name = "\"DESPACHO REAL\"")
-    private Instant despachoReal;
+    private LocalDate despachoReal;
 
     @Column(name = "\"COSTO TOTAL FABRICACIÓN\"", precision = 36, scale = 15)
     private BigDecimal costoTotalFabricaciN;
@@ -196,7 +196,7 @@ public class CoProyTablero {
     private String caClaNi5Nombre;
 
     @Column(name = "FECHA_I")
-    private Instant fechaI;
+    private LocalDate fechaI;
 
     @Size(max = 12)
     @Column(name = "ENTRADA", length = 12)

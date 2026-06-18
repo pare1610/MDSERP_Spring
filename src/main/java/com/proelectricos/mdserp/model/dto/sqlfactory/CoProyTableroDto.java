@@ -8,7 +8,7 @@ import lombok.Value;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDate;
 
 /**
  * DTO for {@link com.proelectricos.mdserp.model.entity.sqlfactory.CoProyTablero}
@@ -22,8 +22,8 @@ public class CoProyTableroDto implements Serializable {
     Integer op;
     @Size(max = 20)
     String master;
-    Instant fechaPedido;
-    Instant fechaFinal;
+    LocalDate fechaPedido;
+    LocalDate fechaFinal;
     @Size(max = 50)
     String fechaRealEntrega;
     @Size(max = 6)
@@ -46,25 +46,25 @@ public class CoProyTableroDto implements Serializable {
     BigDecimal cantp;
     BigDecimal cante;
     BigDecimal canSaldo;
-    Instant fechaT;
-    Instant dispElecMecPlan;
-    Instant dispElecMecReal;
-    Instant aprobaciNPlan;
-    Instant aprobaciNReal;
-    Instant compromisoYEntregaPlan;
-    Instant compromisoYEntregaReal;
-    Instant lmfYConsumiblesPlan;
-    Instant lmfYConsumiblesReal;
-    Instant comprasPlan;
-    Instant comprasReal;
-    Instant diseOMecNicoPlan;
-    Instant diseOMecNicoReal;
-    Instant metalmecNicaPlan;
-    Instant metalmecNicaReal;
-    Instant materialElCtricoPlan;
-    Instant materialElCtricoReal;
-    Instant despachoPlan;
-    Instant despachoReal;
+    LocalDate fechaT;
+    LocalDate dispElecMecPlan;
+    LocalDate dispElecMecReal;
+    LocalDate aprobaciNPlan;
+    LocalDate aprobaciNReal;
+    LocalDate compromisoYEntregaPlan;
+    LocalDate compromisoYEntregaReal;
+    LocalDate lmfYConsumiblesPlan;
+    LocalDate lmfYConsumiblesReal;
+    LocalDate comprasPlan;
+    LocalDate comprasReal;
+    LocalDate diseOMecNicoPlan;
+    LocalDate diseOMecNicoReal;
+    LocalDate metalmecNicaPlan;
+    LocalDate metalmecNicaReal;
+    LocalDate materialElCtricoPlan;
+    LocalDate materialElCtricoReal;
+    LocalDate despachoPlan;
+    LocalDate despachoReal;
     BigDecimal costoTotalFabricaciN;
     BigDecimal costoTotalOferta;
     BigDecimal precVenta;
@@ -84,7 +84,7 @@ public class CoProyTableroDto implements Serializable {
     @NotNull
     @Size(max = 60)
     String caClaNi5Nombre;
-    Instant fechaI;
+    LocalDate fechaI;
     @Size(max = 12)
     String entrada;
     @Size(max = 12)
