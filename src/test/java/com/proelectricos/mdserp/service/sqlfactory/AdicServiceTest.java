@@ -1,6 +1,7 @@
 package com.proelectricos.mdserp.service.sqlfactory;
 
 import org.junit.jupiter.api.Test;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,6 +14,8 @@ class AdicServiceTest {
     @Test
     void findAllAdics() {
         var results = adicService.findAllAdics();
-        results.forEach(item -> System.out.println(item));
+        StreamSupport.stream(results.spliterator(), false)
+                .limit(10)
+                .forEach(System.out::println);
     }
 }
