@@ -97,6 +97,12 @@
             <artifactId>telegrambots-client</artifactId>
             <version>10.3.0</version>
         </dependency>
+        <!-- Chatbot: codificación MP3 en Java puro para las notas de voz -->
+        <dependency>
+            <groupId>de.sciss</groupId>
+            <artifactId>jump3r</artifactId>
+            <version>1.0.5</version>
+        </dependency>
     </dependencies>
 
     <build>

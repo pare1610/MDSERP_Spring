@@ -13,7 +13,8 @@ public record ChatbotProperties(
         boolean enabled,
         Gemini gemini,
         Telegram telegram,
-        Database database) {
+        Database database,
+        Tts tts) {
 
     /**
      * @param maxToolCalls rondas máximas de llamadas a herramientas por mensaje del usuario
@@ -36,5 +37,27 @@ public record ChatbotProperties(
      * Lo ideal es un usuario SQL con solo db_datareader sobre ErpDb.
      */
     public record Database(String url, String username, String password, int maxRows, int queryTimeoutSeconds) {
+    }
+
+    /**
+     * Respuestas habladas con Gemini TTS.
+     *
+     * @param mode          cuándo responder también con nota de voz
+     * @param maxCharacters texto máximo a leer; lo demás queda solo en el mensaje escrito
+     */
+    public record Tts(Mode mode, String model, String voice, String style, int maxCharacters, int timeoutSeconds) {
+
+        public enum Mode {
+            /** Nunca envía audio */
+            NEVER,
+            /** Solo cuando el usuario escribió con una nota de voz */
+            ON_VOICE,
+            /** Siempre acompaña la respuesta con audio */
+            ALWAYS
+        }
+
+        public boolean aplica(boolean usuarioEnvioAudio) {
+            return mode == Mode.ALWAYS || (mode == Mode.ON_VOICE && usuarioEnvioAudio);
+        }
     }
 }
