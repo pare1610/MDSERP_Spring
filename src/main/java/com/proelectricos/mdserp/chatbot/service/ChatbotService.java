@@ -8,7 +8,9 @@ import com.google.genai.types.FunctionResponse;
 import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
 import com.google.genai.types.Part;
+import com.google.genai.types.ThinkingConfig;
 import com.proelectricos.mdserp.chatbot.config.ChatbotProperties;
+import com.proelectricos.mdserp.chatbot.erpdb.ErpDbReadOnlyQueries;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.io.ClassPathResource;
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -35,15 +40,20 @@ public class ChatbotService {
 
     private final Client gemini;
     private final ErpDbChatTools tools;
+    private final ErpDbReadOnlyQueries queries;
     private final ChatbotProperties.Gemini config;
+    // Instrucciones de comportamiento + conocimiento del negocio (archivos editables en resources/chatbot)
     private final String instrucciones;
-    private final Map<Long, Chat> chats = new ConcurrentHashMap<>();
+    private final Map<Long, Conversacion> chats = new ConcurrentHashMap<>();
+    // Esquema de ErpDb leído una sola vez de la base; null hasta que se lea con éxito
+    private volatile String esquema;
 
-    public ChatbotService(Client gemini, ErpDbChatTools tools, ChatbotProperties properties) {
+    public ChatbotService(Client gemini, ErpDbChatTools tools, ErpDbReadOnlyQueries queries, ChatbotProperties properties) {
         this.gemini = gemini;
         this.tools = tools;
+        this.queries = queries;
         this.config = properties.gemini();
-        this.instrucciones = leerInstrucciones();
+        this.instrucciones = leer("chatbot/instrucciones.md") + "\n\n" + leer("chatbot/conocimiento.md");
     }
 
     /** Envía un texto del usuario y devuelve la respuesta final del modelo. */
@@ -53,14 +63,18 @@ public class ChatbotService {
 
     /** Envía partes arbitrarias (texto, audio...) y devuelve la respuesta final del modelo. */
     public String responder(long chatId, List<Part> partes) {
-        Chat chat = chats.computeIfAbsent(chatId, id -> crearChat());
+        // Tras un rato sin mensajes se empieza de cero: un historial corto hace cada llamada más rápida
+        Conversacion conversacion = chats.compute(chatId, (id, actual) ->
+                actual == null || actual.inactiva(config.minutosInactividad()) ? new Conversacion(crearChat()) : actual);
+        Chat chat = conversacion.chat;
         // El historial de un Chat no es seguro entre hilos: un mensaje a la vez por conversación
         synchronized (chat) {
+            conversacion.ultimoUso = Instant.now();
             try {
                 GenerateContentResponse respuesta = chat.sendMessage(Content.builder().role("user").parts(partes).build());
                 for (int ronda = 0; !respuesta.functionCalls().isEmpty(); ronda++) {
                     if (ronda >= config.maxToolCalls()) {
-                        chats.remove(chatId, chat);
+                        chats.remove(chatId, conversacion);
                         return "No pude completar la consulta con un número razonable de pasos. "
                                 + "Intenta una pregunta más concreta.";
                     }
@@ -73,7 +87,7 @@ public class ChatbotService {
                 return texto == null || texto.isBlank() ? SIN_RESPUESTA : texto;
             } catch (RuntimeException e) {
                 // Un historial con una llamada a función sin respuesta deja inservible la conversación
-                chats.remove(chatId, chat);
+                chats.remove(chatId, conversacion);
                 throw e;
             }
         }
@@ -96,18 +110,49 @@ public class ChatbotService {
     }
 
     private Chat crearChat() {
-        String sistema = instrucciones + "\n\nFecha actual: " + LocalDate.now() + ".";
-        return gemini.chats.create(config.model(), GenerateContentConfig.builder()
+        String sistema = instrucciones
+                + "\n\nEsquema completo de ErpDb (ya lo conoces, no consultes INFORMATION_SCHEMA):\n" + esquema()
+                + "\nFecha actual: " + LocalDate.now() + ".";
+        GenerateContentConfig.Builder configuracion = GenerateContentConfig.builder()
                 .systemInstruction(Content.fromParts(Part.fromText(sistema)))
-                .tools(tools.tool())
-                .build());
+                .tools(tools.tool());
+        if (config.thinkingLevel() != null && !config.thinkingLevel().isBlank()) {
+            configuracion.thinkingConfig(ThinkingConfig.builder().thinkingLevel(config.thinkingLevel().trim()).build());
+        }
+        return gemini.chats.create(config.model(), configuracion.build());
     }
 
-    private static String leerInstrucciones() {
+    // Si ErpDb no responde, el bot sigue funcionando (puede explorar con consultar_sql) y se reintenta en el próximo chat
+    private String esquema() {
+        if (esquema == null) {
+            try {
+                esquema = queries.describirEsquema();
+            } catch (SQLException | RuntimeException e) {
+                log.warn("Chatbot: no se pudo leer el esquema de ErpDb: {}", e.getMessage());
+                return "(no disponible; consulta INFORMATION_SCHEMA.COLUMNS solo si lo necesitas)\n";
+            }
+        }
+        return esquema;
+    }
+
+    private static String leer(String recurso) {
         try {
-            return new ClassPathResource("chatbot/instrucciones.md").getContentAsString(StandardCharsets.UTF_8);
+            return new ClassPathResource(recurso).getContentAsString(StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new UncheckedIOException("No se pudo leer chatbot/instrucciones.md", e);
+            throw new UncheckedIOException("No se pudo leer " + recurso, e);
+        }
+    }
+
+    private static final class Conversacion {
+        private final Chat chat;
+        private volatile Instant ultimoUso = Instant.now();
+
+        private Conversacion(Chat chat) {
+            this.chat = chat;
+        }
+
+        private boolean inactiva(int minutos) {
+            return minutos > 0 && ultimoUso.isBefore(Instant.now().minus(Duration.ofMinutes(minutos)));
         }
     }
 }
