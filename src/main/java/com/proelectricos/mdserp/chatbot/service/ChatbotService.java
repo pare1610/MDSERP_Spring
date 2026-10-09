@@ -44,7 +44,7 @@ public class ChatbotService {
     private final ChatbotProperties.Gemini config;
     // Instrucciones de comportamiento + conocimiento del negocio (archivos editables en resources/chatbot)
     private final String instrucciones;
-    private final Map<Long, Conversacion> chats = new ConcurrentHashMap<>();
+    private final Map<String, Conversacion> chats = new ConcurrentHashMap<>();
     // Esquema de ErpDb leído una sola vez de la base; null hasta que se lea con éxito
     private volatile String esquema;
 
@@ -56,13 +56,16 @@ public class ChatbotService {
         this.instrucciones = leer("chatbot/instrucciones.md") + "\n\n" + leer("chatbot/conocimiento.md");
     }
 
-    /** Envía un texto del usuario y devuelve la respuesta final del modelo. */
-    public String responder(long chatId, String texto) {
+    /**
+     * Envía un texto del usuario y devuelve la respuesta final del modelo.
+     * chatId identifica la conversación con el prefijo del canal (telegram:..., web:...).
+     */
+    public String responder(String chatId, String texto) {
         return responder(chatId, List.of(Part.fromText(texto)));
     }
 
     /** Envía partes arbitrarias (texto, audio...) y devuelve la respuesta final del modelo. */
-    public String responder(long chatId, List<Part> partes) {
+    public String responder(String chatId, List<Part> partes) {
         // Tras un rato sin mensajes se empieza de cero: un historial corto hace cada llamada más rápida
         Conversacion conversacion = chats.compute(chatId, (id, actual) ->
                 actual == null || actual.inactiva(config.minutosInactividad()) ? new Conversacion(crearChat()) : actual);
@@ -93,7 +96,7 @@ public class ChatbotService {
         }
     }
 
-    public void reiniciar(long chatId) {
+    public void reiniciar(String chatId) {
         chats.remove(chatId);
     }
 
